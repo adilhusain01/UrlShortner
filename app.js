@@ -10,7 +10,7 @@ const PORT = 8000;
 //middleware for the JSON format
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb+srv://adil:<password>@cluster0.vhsb2sa.mongodb.net/").then(() => {
+mongoose.connect("mongodb+srv://adil:Nigar01@cluster0.vhsb2sa.mongodb.net/").then(() => {
     console.log("Connected to MongoDB");
 })
 

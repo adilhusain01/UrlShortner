@@ -9,25 +9,17 @@ const createShortenedURL = async (req,res) => {
     const shortCode = shortId.generate();
 
     try {
-        //check if the original url exists in the database
+        // Create a new URL document with the generated short code
+        const url = new URL({
+            originalURL,
+            shortenedCode: shortCode
+        });
 
-        let url = await URL.findOne({ originalURL });
-
-        if(url){
-            //if url already exists, return the existing shortened url
-            res.json(url);
-        }else {
-            //if doesnnt exist, create a new doocument
-            url = new URL({
-                originalURL,
-                shortCode
-            })
-        }
-
-        //save the url document to database
+        // Save the new URL document to the database
         await url.save();
 
-        //return the newly created url
+        // Return the newly created shortened URL
+        res.json(url);
     } catch (error) {
         console.error(error.message)
         res.status(500).json({message: "Server Error"});
@@ -39,7 +31,7 @@ const redirectToOriginalURL = async (req, res) => {
     
     try {
         //find the URL document with the given code
-        const url = await URL.findOne({ shortCode: shortenedCode });
+        const url = await URL.findOne({ shortenedCode });
 
         if(url){
             res.redirect(url.originalURL);

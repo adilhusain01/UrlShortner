@@ -7,7 +7,7 @@ const urlSchema = mongoose.Schema({
     },
     shortenedCode:{
         type: String,
-        required: true,
+        required:true,
         unique: true
     },
     timeStamp:{
